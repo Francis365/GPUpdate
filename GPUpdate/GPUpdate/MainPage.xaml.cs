@@ -12,6 +12,7 @@ namespace GPUpdate
 		public MainPage()
 		{
 			InitializeComponent();
+            var x = 22;
 		}
 	}
 }
