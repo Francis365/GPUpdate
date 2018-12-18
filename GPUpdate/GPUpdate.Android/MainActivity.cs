@@ -19,7 +19,7 @@ namespace GPUpdate.Droid
 
             base.OnCreate(bundle);
 
-            App.screenSize =
+            App.screenSize = 
                 new Xamarin.Forms.Size((int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density),
                     (int)(Resources.DisplayMetrics.HeightPixels / Resources.DisplayMetrics.Density));
 
