@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:GPUpdate.CustomViews;assembly=GPUpdate"
+             x:Name="CoursePage"
+             x:Class="GPUpdate.Views.CourseView"
+             BindingContext="{Binding courseViewModel, Source={StaticResource viewModelLocator}}"
+             Title="{Binding Level, StringFormat='{0} Level'}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Menu1"
+                     Text="Add"
+                     Order="Secondary"
+                     Icon="GPUpdate/Icons/add.png"
+                     Priority="0"
+                     Command="{Binding SlideOpenClose}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+
+        <StackLayout VerticalOptions="FillAndExpand">
+
+            <Grid Padding="10, 10, 10, 10" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0"
+                             VerticalOptions="FillAndExpand"
+                             Padding="5,5,5,5">
+
+                    <ListView x:Name="Courses"
+                              VerticalOptions="FillAndExpand"
+                              HasUnevenRows="True"
+                              ItemsSource="{Binding CourseList}"
+                              SelectedItem="{Binding SelectedCourseItem, Mode=TwoWay}">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem Text="Remove"
+                                                  Command="{Binding BindingContext.RemoveCourse, Source={x:Reference Name=CoursePage}}"
+                                                  CommandParameter="{Binding}" />
+                                    </ViewCell.ContextActions>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Text="{Binding CourseTitle}"
+                                               FontSize="Large" />
+                                        <StackLayout Orientation="Horizontal">
+
+                                            <!--Individual Grade, Score and CreditUnit Value in the List-->
+                                            <Label Text="{Binding Grade, StringFormat='Grade  ---  {0}'}"
+                                                   HorizontalOptions="Start" />
+                                            <Label Text="{Binding Score, StringFormat='Score  ---  {0}'}"
+                                                   HorizontalOptions="CenterAndExpand" />
+                                            <Label Text="{Binding CreditUnit, StringFormat='Credit Unit  ---  {0}'}"
+                                                   HorizontalOptions="End" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+
+                    <ContentView Grid.Row="1" Grid.ColumnSpan="2"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="FillAndExpand"
+                                 BackgroundColor="Transparent">
+
+                        <ContentView.GestureRecognizers>
+                            <SwipeGestureRecognizer
+                                Direction="Up"
+                                Command="{Binding SwipeGesture}"
+                                CommandParameter="up" />
+                            <SwipeGestureRecognizer
+                                Direction="Down"
+                                Command="{Binding SwipeGesture}"
+                                CommandParameter="down" />
+                        </ContentView.GestureRecognizers>
+                    </ContentView>
+
+                </StackLayout>
+
+
+                <controls:SlideUpView Grid.Row="1" Grid.Column="0"
+                                      DefaultHeight="{Binding DefaultHeight}" IsSlideOpen="{Binding IsSlide}">
+
+                    <StackLayout Padding="0, 15, 0, 15"
+                                 VerticalOptions="FillAndExpand">
+
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="FillAndExpand">
+                            <Label Text="CourseTitle"
+                                   FontSize="Large"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="CenterAndExpand" />
+
+                            <Entry HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   Keyboard="Text"
+                                   Text="{Binding CourseTitle, Mode=TwoWay}" />
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="FillAndExpand">
+                            <Label Text="Grade"
+                                   FontSize="Large"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="CenterAndExpand" />
+
+                            <Picker x:Name="gradePicker"
+                                    HorizontalOptions="CenterAndExpand"
+                                    VerticalOptions="CenterAndExpand"
+                                    Title="Choose Grade"
+                                    SelectedItem="{Binding Grade}">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>A</x:String>
+                                        <x:String>B</x:String>
+                                        <x:String>C</x:String>
+                                        <x:String>D</x:String>
+                                        <x:String>E</x:String>
+                                        <x:String>F</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="FillAndExpand">
+                            <Label Text="Score"
+                                   FontSize="Large"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="CenterAndExpand" />
+
+                            <Entry HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   Keyboard="Numeric"
+                                   Text="{Binding Score, Mode=TwoWay}" />
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="FillAndExpand">
+                            <Label Text="Credit Unit"
+                                   FontSize="Large"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="CenterAndExpand" />
+
+                            <Entry HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   Keyboard="Numeric"
+                                   Text="{Binding CreditUnit, Mode=TwoWay}" />
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="FillAndExpand">
+                            <Button Text="Edit Courses"
+                                    TextColor="Black"
+                                    HorizontalOptions="StartAndExpand" />
+                            <Button Text="Add"
+                                    Command="{Binding SaveCourse}"
+                                    TextColor="Black"
+                                    HorizontalOptions="EndAndExpand" />
+                        </StackLayout>
+
+                    </StackLayout>
+
+
+                </controls:SlideUpView>
+
+
+            </Grid>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>

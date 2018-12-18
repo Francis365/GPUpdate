@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:GPUpdate.Converters;assembly=GPUpdate"
+             x:Class="GPUpdate.Views.UsersView;assembly=GPUpdate"
+             BindingContext="{Binding usersViewModel, Source={StaticResource viewModelLocator}}">
+
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+
+            <ListView ItemsSource="{Binding UsersList}"
+                      HasUnevenRows="True"
+                      SelectedItem="{Binding DisplaySelectedUserData, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <StackLayout Orientation="Horizontal"
+                                         HorizontalOptions="StartAndExpand"
+                                         BindingContext="{Binding FirebaseAuthModel}">
+                                <Image Source="{Binding UserPhotoUrl, Converter={StaticResource ImageConverter}}"
+                                       Aspect="AspectFill" />
+
+                                <StackLayout Orientation="Vertical"
+                                             HorizontalOptions="EndAndExpand">
+                                    <Label Text="{Binding UserFederatedId, StringFormat='ID : {0}'}" />
+
+                                    <Label Text="{Binding UserEmail, StringFormat='email : {0}'}" />
+                                </StackLayout>
+
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

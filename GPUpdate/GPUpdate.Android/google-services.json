@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1047568703656",
+    "firebase_url": "https://gpupdate-11ba7.firebaseio.com",
+    "project_id": "gpupdate-11ba7",
+    "storage_bucket": "gpupdate-11ba7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047568703656:android:235e26665a8b2a7c",
+        "android_client_info": {
+          "package_name": "com.francis.gpupdate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047568703656-fl9upvrt2ol35041igjifc0redchscmm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.francis.gpupdate",
+            "certificate_hash": "6a10f4d5f951fe6d969e278586413ef6dcbc14c3"
+          }
+        },
+        {
+          "client_id": "1047568703656-1ta4gu4vkbpqq1eme9ge06l6t00at6ig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy1XysUTeLisHONirSrFS0Pt-Fz0gaXD8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047568703656-1ta4gu4vkbpqq1eme9ge06l6t00at6ig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

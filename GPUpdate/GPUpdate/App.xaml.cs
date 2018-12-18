@@ -1,20 +1,30 @@
-﻿using System;
+﻿using GPUpdate.Services;
+using GPUpdate.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GPUpdate
 {
 	public partial class App : Application
 	{
-		public App ()
+        public static Size screenSize;
+
+        public static Func<string, Task<bool>> DisplayAction;
+
+        public static bool isSignedIn;
+
+        public App ()
 		{
 			InitializeComponent();
 
-			MainPage = new GPUpdate.MainPage();
-		}
+            MainPage = FirebaseDBService.isSigned
+                ? new NavigationPage(new LevelView())
+                : new NavigationPage(new LevelView());
+        }
 
 		protected override void OnStart ()
 		{

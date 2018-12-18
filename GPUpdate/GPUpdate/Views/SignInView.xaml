@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GPUpdate.Views.SignInView"
+             BindingContext="{Binding signInViewModel, Source={StaticResource viewModelLocator}}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Image HorizontalOptions="CenterAndExpand"
+                   Margin="0,15,0,0" />
+
+            <StackLayout Orientation="Vertical"
+                         VerticalOptions="CenterAndExpand"
+                         HorizontalOptions="FillAndExpand"
+                         Padding="5,3,5,3">
+
+                <Label Text="Username"
+                       FontFamily="Courier"
+                       FontSize="Small" />
+                <Entry Placeholder="Username" />
+
+                <Label Text="Password"
+                       FontFamily="Courier"
+                       FontSize="Small" />
+                <Entry Placeholder="Password"
+                       IsPassword="True" />
+
+                <Button Text="SignIn" />
+
+            </StackLayout>
+
+            <Button Text="Sign In with Facebook"
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    Command="{Binding SignInwithFacebook}" />
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

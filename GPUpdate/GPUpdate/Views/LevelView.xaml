@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:GPUpdate.CustomViews;assembly=GPUpdate"
+             x:Name="LevelPage"
+             x:Class="GPUpdate.Views.LevelView"
+             BindingContext="{Binding levelViewModel, Source={StaticResource viewModelLocator}}"
+             Title="GPUpdate">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ProfileMenu"
+                     Text="Profile"
+                     Order="Secondary"
+                     Priority="0"
+                     Clicked="ProfileMenu_Clicked" />
+
+        <ToolbarItem x:Name="LevelMenu"
+                     Text="Add"
+                     Order="Secondary"
+                     Icon="GPUpdate/Icons/add.png"
+                     Command="{Binding SlideOpenClose}" />
+
+        <ToolbarItem x:Name="SignInMenu"
+                     Text="Sign in"
+                     Order="Secondary"
+                     Clicked="SignInMenu_Clicked" />
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+
+        <Grid Padding="10,10,10,10" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+
+            <!--<Grid.GestureRecognizers>
+                <SwipeGestureRecognizer 
+                                    Direction="Up"
+                                    Command="{Binding SwipeGesture}"
+                                    CommandParameter="up"/>
+                <SwipeGestureRecognizer 
+                                    Direction="Down"
+                                    Command="{Binding SwipeGesture}"
+                                    CommandParameter="down"/>
+            </Grid.GestureRecognizers>-->
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="GPA "
+                   Grid.Row="0" Grid.Column="0"
+                   HorizontalOptions="Center"
+                   TextColor="Black" />
+
+            <Label Text="CGPA "
+                   Grid.Row="0" Grid.Column="1"
+                   HorizontalOptions="Center"
+                   TextColor="Black" />
+
+            <ListView x:Name="levelList" Grid.Row="1" Grid.ColumnSpan="2"
+                      ItemsSource="{Binding LevelList}"
+                      HasUnevenRows="True"
+                      ItemTapped="levelList_ItemTapped"
+                      BackgroundColor="Blue">
+
+                <!--<ListView.GestureRecognizers>
+                    <SwipeGestureRecognizer 
+                                    Direction="Up"
+                                    Command="{Binding BindingContext.SwipeGesture, Source={x:Reference Name=LevelPage}}"
+                                    CommandParameter="up"/>
+                    <SwipeGestureRecognizer 
+                                    Direction="Down"
+                                    Command="{Binding BindingContext.SwipeGesture, Source={x:Reference Name=LevelPage}}"
+                                    CommandParameter="down"/>
+                </ListView.GestureRecognizers>-->
+
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Edit"
+                                          Clicked="Edit_OnClicked"
+                                          CommandParameter="{Binding Level}" />
+                                <MenuItem Text="Remove"
+                                          Command="{Binding BindingContext.RemoveLevel, Source={x:Reference Name=LevelPage}}"
+                                          CommandParameter="{Binding}" />
+                            </ViewCell.ContextActions>
+                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="Center" Padding="5">
+                                <Label Text="{Binding Level, StringFormat='{0} Level'} " HorizontalOptions="Start"
+                                       VerticalOptions="Start" TextColor="Black" FontSize="Medium" />
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Center">
+                                    <Label Text="{Binding TotalCourses, StringFormat='TotalCourses : {0}'}"
+                                           HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
+                                           TextColor="Black" />
+                                    <Label Text="{Binding GPA, StringFormat='GPA : {0:F02}'}"
+                                           HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
+                                           TextColor="Black" />
+                                    <Label Text="{Binding TotalCreditUnit, StringFormat='TotalCreditUnit : {0}'}"
+                                           HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
+                                           TextColor="Black" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!--<ContentView Grid.Row="2" Grid.ColumnSpan="2">
+                <ContentView.GestureRecognizers>
+                    <SwipeGestureRecognizer 
+                                    Direction="Up"
+                                    Command="{Binding SwipeGesture}"
+                                    CommandParameter="up"/>
+                    <SwipeGestureRecognizer 
+                                    Direction="Down"
+                                    Command="{Binding SwipeGesture}"
+                                    CommandParameter="down"/>
+                </ContentView.GestureRecognizers>
+            </ContentView>-->
+
+
+            <Button x:Name="resultButton"
+                    Grid.Row="3" Grid.Column="0"
+                    Text="Result" />
+
+            <Button x:Name="addLevelButton"
+                    Grid.Row="3" Grid.Column="1"
+                    Text="Add Level"
+                    Command="{Binding SlideOpenClose}" />
+
+            <controls:SlideUpView Grid.Row="4" Grid.ColumnSpan="2"
+                                  DefaultHeight="{Binding DefaultHeight}" IsSlideOpen="{Binding IsSlide}"
+                                  BackgroundColor="Aqua">
+                <StackLayout Padding="0, 15, 0, 15"
+                             VerticalOptions="FillAndExpand">
+
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand">
+                        <Label Text="Level"
+                               FontSize="Large"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand" />
+
+                        <Picker x:Name="levelPicker"
+                                HorizontalOptions="CenterAndExpand"
+                                VerticalOptions="CenterAndExpand"
+                                Title="Choose Level"
+                                SelectedItem="{Binding SelectedLevel}">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>100</x:String>
+                                    <x:String>200</x:String>
+                                    <x:String>300</x:String>
+                                    <x:String>400</x:String>
+                                    <x:String>500</x:String>
+                                    <x:String>600</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand">
+                        <Button Text="Edit Courses"
+                                TextColor="Black"
+                                HorizontalOptions="StartAndExpand" />
+                        <Button Text="Add"
+                                Command="{Binding SaveCourse}"
+                                TextColor="Black"
+                                HorizontalOptions="EndAndExpand" />
+                    </StackLayout>
+
+                </StackLayout>
+
+
+            </controls:SlideUpView>
+
+
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

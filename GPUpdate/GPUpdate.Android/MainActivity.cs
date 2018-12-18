@@ -19,6 +19,15 @@ namespace GPUpdate.Droid
 
             base.OnCreate(bundle);
 
+            App.screenSize =
+                new Xamarin.Forms.Size((int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density),
+                    (int)(Resources.DisplayMetrics.HeightPixels / Resources.DisplayMetrics.Density));
+
+            Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
+
+            Xamarin.Auth.CustomTabsConfiguration.CustomTabsClosingMessage = null;
+
+
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
         }
